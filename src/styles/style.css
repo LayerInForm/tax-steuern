@@ -1,0 +1,505 @@
+/* ==========================================================================
+   TAX Hanseatische Steuerberatungsgesellschaft mbH – Stylesheet
+   --------------------------------------------------------------------------
+   Aufbau dieser Datei:
+     1. Schriften (lokal, keine externen Server)
+     2. Farben & Maße (hier zentral ändern)
+     3. Grundlagen
+     4. Kopfzeile
+     5. Startbereich (Hero) mit dem großen „TAX“
+     6. Leistungen
+     7. Kontakt
+     8. Fußzeile
+     9. Rechtstexte (Impressum, Datenschutz)
+    10. Platzhalter (gelb) – vor dem Livegang entfernen
+    11. Bewegung / Animationen
+   ========================================================================== */
+
+
+/* 1. SCHRIFTEN ------------------------------------------------------------
+   Beide Schriften liegen in /public/fonts und stehen unter der
+   SIL Open Font License (Lizenztexte im selben Ordner). */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces.woff2") format("woff2-variations"),
+       url("/fonts/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  src: url("/fonts/inter-tight.woff2") format("woff2-variations"),
+       url("/fonts/inter-tight.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* 2. FARBEN & MASSE ------------------------------------------------------- */
+
+:root {
+  /* Farbpalette „Hanseatisches Kontor“ */
+  --kalk:        #ECEEEA;   /* Hintergrund: kühles Kalkweiß */
+  --kalk-hell:   #F6F7F4;   /* hellere Fläche */
+  --tinte:       #0E1B2C;   /* Haupttext, Navy */
+  --tinte-tief:  #08111D;   /* Fußzeile */
+  --schiefer:    #4A5563;   /* Nebentext */
+  --messing:     #A8813A;   /* Akzent (nur Linien, Grafik, große Schrift) */
+  --messing-hell:#D2B072;   /* Akzent auf dunklem Grund */
+  --linie:       rgba(14, 27, 44, 0.16);
+  --linie-hell:  rgba(236, 238, 234, 0.18);
+
+  /* Schriften */
+  --serif: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans:  "Inter Tight", "Helvetica Neue", Arial, system-ui, sans-serif;
+
+  /* Abstände & Breiten */
+  --rand:   clamp(1.25rem, 5vw, 4.5rem);   /* seitlicher Seitenrand */
+  --breite: 84rem;                         /* maximale Inhaltsbreite */
+  --abschnitt: clamp(5rem, 12vw, 10rem);   /* Abstand zwischen Abschnitten */
+}
+
+
+/* 3. GRUNDLAGEN ----------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--kalk);
+  color: var(--tinte);
+  font-family: var(--sans);
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+}
+a:hover { text-decoration-color: var(--messing); }
+
+/* Gut sichtbarer Tastatur-Fokus */
+:focus-visible {
+  outline: 2px solid var(--messing);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--breite);
+  margin-inline: auto;
+  padding-inline: var(--rand);
+}
+
+/* „Zum Inhalt springen“ für Tastatur- und Screenreader-Nutzer */
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+  background: var(--tinte);
+  color: var(--kalk);
+  text-decoration: none;
+}
+.skip:focus { top: 1rem; }
+
+/* Nur für Screenreader sichtbar */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* 4. KOPFZEILE ------------------------------------------------------------ */
+
+.kopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--linie);
+}
+
+.marke {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  text-decoration: none;
+  line-height: 1.1;
+}
+.marke__kurz {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.6rem;
+  font-variation-settings: "opsz" 48;
+  letter-spacing: 0.02em;
+}
+.marke__lang {
+  font-size: 0.875rem;
+  color: var(--schiefer);
+  max-width: 19rem;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 3vw, 2.25rem);
+  font-size: 0.95rem;
+}
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; text-decoration-color: var(--messing); }
+.nav__tel { font-variant-numeric: tabular-nums; font-weight: 500; }
+
+@media (max-width: 760px) {
+  .marke__lang { display: none; }
+  .nav__tel { display: none; }   /* Telefon steht auf dem Handy groß im Kontaktbereich */
+}
+
+
+/* 5. STARTBEREICH (HERO) -------------------------------------------------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;          /* schneidet das große TAX unten ab */
+  padding-top: clamp(4rem, 11vw, 9rem);
+}
+
+.hero__titel {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 330;
+  font-size: clamp(2.9rem, 1.4rem + 7vw, 8.25rem);
+  font-variation-settings: "opsz" 144;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  max-width: 13ch;
+}
+/* Jede Zeile der Überschrift wird beim Laden einzeln eingeblendet */
+.hero__zeile { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.hero__zeile > span { display: block; }
+
+.hero__unten {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem 3rem;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  max-width: 52rem;
+}
+@media (min-width: 760px) {
+  .hero__unten { grid-template-columns: auto auto; justify-content: start; }
+}
+.hero__unten p { margin: 0; }
+.hero__person { font-weight: 550; }
+.hero__person span { display: block; font-weight: 400; color: var(--schiefer); }
+.hero__ort { color: var(--schiefer); }
+
+/* Das markante Element: „TAX“ als feine Messing-Linie, randlos */
+.hero__marke {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  margin-inline: calc(var(--rand) * -0.4);
+  height: clamp(9rem, 27vw, 24rem);      /* sichtbarer Ausschnitt: untere Buchstabenteile bleiben verborgen */
+  pointer-events: none;
+}
+.hero__marke svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.hero__marke text {
+  font-family: var(--serif);
+  font-weight: 420;
+  font-variation-settings: "opsz" 144;
+  fill: none;
+  stroke: var(--messing);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+
+/* 6. LEISTUNGEN ----------------------------------------------------------- */
+
+.leistungen {
+  padding-block: var(--abschnitt);
+  border-top: 1px solid var(--linie);
+}
+
+.leistungen__raster {
+  display: grid;
+  gap: 3rem;
+}
+@media (min-width: 960px) {
+  .leistungen__raster {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 5rem;
+  }
+  .leistungen__kopf { position: sticky; top: 3rem; align-self: start; }
+}
+
+.abschnitt-titel {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 350;
+  font-size: clamp(2.3rem, 1.5rem + 3.6vw, 4.6rem);
+  font-variation-settings: "opsz" 144;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.leistungen__kopf p {
+  margin: 1.5rem 0 0;
+  max-width: 30ch;
+  color: var(--schiefer);
+  font-size: 1.1em;
+}
+
+.gruppe + .gruppe { margin-top: clamp(3rem, 6vw, 4.5rem); }
+
+.gruppe__titel {
+  margin: 0 0 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--schiefer);
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--tinte);
+}
+
+.leistung {
+  display: grid;
+  gap: 0.35rem 2rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--linie);
+}
+@media (min-width: 640px) {
+  .leistung { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: baseline; }
+}
+.leistung h4 {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.45rem, 1.1rem + 1.2vw, 2rem);
+  font-variation-settings: "opsz" 60;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.leistung p { margin: 0; color: var(--schiefer); max-width: 40ch; }
+
+
+/* 7. KONTAKT -------------------------------------------------------------- */
+
+.kontakt {
+  background: var(--tinte);
+  color: var(--kalk);
+  padding-block: var(--abschnitt);
+}
+.kontakt :focus-visible { outline-color: var(--messing-hell); }
+.kontakt a:hover { text-decoration-color: var(--messing-hell); }
+
+.kontakt__hinweis {
+  margin: 0 0 clamp(3rem, 7vw, 5rem);
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--messing-hell);
+  max-width: 38ch;
+  color: rgba(236, 238, 234, 0.82);
+}
+
+.kontakt .abschnitt-titel { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+
+/* Die Telefonnummer als größtes Element des Abschnitts */
+.kontakt__tel {
+  display: inline-block;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 1.2rem + 7vw, 7.5rem);
+  font-variation-settings: "opsz" 144;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: lining-nums;
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--linie-hell);
+  padding-bottom: 0.12em;
+  transition: border-color 0.25s ease;
+}
+.kontakt__tel:hover { border-bottom-color: var(--messing-hell); }
+
+.kontakt__raster {
+  display: grid;
+  gap: 2.5rem 3rem;
+  margin-top: clamp(3rem, 7vw, 5rem);
+}
+@media (min-width: 720px)  { .kontakt__raster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .kontakt__raster { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.kontakt__raster h3 {
+  margin: 0 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--messing-hell);
+}
+.kontakt__raster p, .kontakt__raster address { margin: 0; font-style: normal; }
+.kontakt__raster a { overflow-wrap: anywhere; }
+.kontakt__karte { margin-top: 0.5rem !important; }
+
+
+/* 8. FUSSZEILE ------------------------------------------------------------ */
+
+.fuss {
+  background: var(--tinte-tief);
+  color: rgba(236, 238, 234, 0.72);
+  padding-block: 2.25rem;
+  font-size: 0.9rem;
+}
+.fuss .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+}
+.fuss p { margin: 0; }
+.fuss nav { display: flex; gap: 1.75rem; }
+.fuss a { color: var(--kalk); text-decoration: none; }
+.fuss a:hover { text-decoration: underline; text-decoration-color: var(--messing-hell); }
+.fuss :focus-visible { outline-color: var(--messing-hell); }
+
+
+/* 9. RECHTSTEXTE (Impressum, Datenschutz) --------------------------------- */
+
+.recht {
+  padding-block: clamp(3.5rem, 9vw, 7rem) var(--abschnitt);
+}
+.recht__titel {
+  margin: 0 0 clamp(2.5rem, 6vw, 4rem);
+  font-family: var(--serif);
+  font-weight: 330;
+  font-size: clamp(2.6rem, 1.4rem + 5vw, 6rem);
+  font-variation-settings: "opsz" 144;
+  line-height: 1;
+  letter-spacing: -0.025em;
+}
+.recht__text { max-width: 44rem; }
+.recht__text h2 {
+  margin: 3rem 0 0.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--linie);
+  font-family: var(--serif);
+  font-weight: 450;
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.7rem);
+  font-variation-settings: "opsz" 48;
+  line-height: 1.2;
+}
+.recht__text h3 {
+  margin: 1.75rem 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.recht__text p, .recht__text ul { margin: 0 0 1rem; }
+.recht__text ul { padding-left: 1.2rem; }
+.recht__text li + li { margin-top: 0.3rem; }
+.recht__text address { font-style: normal; margin-bottom: 1rem; }
+.recht__stand { color: var(--schiefer); font-size: 0.9rem; margin-top: 3rem !important; }
+
+
+/* 10. PLATZHALTER ---------------------------------------------------------
+   Alles mit class="platzhalter" ist noch zu ergänzen und leuchtet gelb.
+   Vor dem Livegang: Text eintragen und das <mark class="platzhalter">
+   durch den echten Text ersetzen (bzw. das <mark> entfernen). */
+
+.platzhalter {
+  background: #FFE14D;
+  color: #1F1A00;
+  outline: 2px dashed #B08A00;
+  outline-offset: 1px;
+  padding: 0.05em 0.35em;
+  border-radius: 2px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: max(0.85em, 0.9rem);
+  letter-spacing: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+
+/* 11. BEWEGUNG ------------------------------------------------------------
+   Ein einziger, ruhiger Auftakt beim Laden: die Überschrift erscheint
+   Zeile für Zeile, danach zeichnet sich das „TAX“ als Linie.
+   Wer in seinem System „Bewegung reduzieren“ eingestellt hat,
+   sieht alles sofort und ohne Animation. */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .hero__zeile > span {
+    animation: zeile-hoch 1s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  }
+  .hero__zeile:nth-child(2) > span { animation-delay: 0.12s; }
+  .hero__zeile:nth-child(3) > span { animation-delay: 0.24s; }
+
+  .hero__unten { animation: einblenden 0.9s ease 0.55s both; }
+
+  .hero__marke text {
+    stroke-dasharray: 6000;
+    stroke-dashoffset: 6000;
+    animation: linie-zeichnen 3.2s cubic-bezier(0.45, 0, 0.2, 1) 0.6s forwards;
+  }
+
+  /* Beim Scrollen hebt sich das TAX leicht an (nur in modernen Browsern) */
+  @supports (animation-timeline: view()) {
+    .hero__marke svg {
+      animation: marke-heben linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+@keyframes zeile-hoch {
+  from { transform: translateY(105%); }
+  to   { transform: translateY(0); }
+}
+@keyframes einblenden {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes linie-zeichnen {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes marke-heben {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-14%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+
+/* Druckansicht: schlicht */
+@media print {
+  .kopf .nav, .hero__marke, .skip { display: none; }
+  .kontakt, .fuss { background: none; color: #000; }
+  .platzhalter { outline: none; }
+}

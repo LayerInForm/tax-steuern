@@ -1,0 +1,23 @@
+{
+  "name": "tax-steuern",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Website der TAX Hanseatische Steuerberatungsgesellschaft mbH (tax-steuern.de)",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
+    "build:live": "tsc --noEmit && cross-env PLATZHALTER_STRENG=1 vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "cross-env": "^10.1.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2"
+  }
+}
